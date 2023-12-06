@@ -2,6 +2,7 @@ import AuthButton from "../components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import Header from "@/components/Header";
+import DateSelector from "@/components/DateSelector";
 
 export default async function Index() {
   const cookieStore = cookies();
@@ -29,6 +30,8 @@ export default async function Index() {
       </nav>
 
       <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3"></div>
+
+        <DateSelector />
 
       <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs"></footer>
     </div>

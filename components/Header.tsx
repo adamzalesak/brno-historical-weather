@@ -9,8 +9,8 @@ function Header() {
         <Link href="/">Brno Weather Capsule</Link>
       </h1>
       <div className="w-full max-w-4xl flex justify-end items-center p-3 text-sm gap-2">
-        <Button variant="secondary">
-          <Link href="/events">All events</Link>
+        <Button variant="secondary" asChild>
+          <Link href="/all-events">All Events</Link>
         </Button>
         <User />
       </div>

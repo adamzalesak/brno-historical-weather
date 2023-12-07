@@ -21,15 +21,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" className={GeistSans.className}>
       <body className="text-foreground flex flex-col">
         <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
+          <div className="w-full max-w-5xl flex justify-between items-center p-3 text-sm">
             <Header />
           </div>
         </nav>
-        <div className="bg-[url('/background-image.png')] bg-cover bg min-h-[calc(100dvh-4rem)]">
-          <main className="pt-4 min-h-[calc(100dvh-4rem)] flex flex-col items-center bg-white bg-opacity-60">
-            {children}
-          </main>
-        </div>
+        <main className="bg-[url('/background-image.png')] bg-cover">
+          <div className="pt-8 min-h-[calc(100dvh-4rem)] flex flex-col items-center bg-card">
+            <div className="w-full px-8 max-w-5xl">{children}</div>
+          </div>
+        </main>
       </body>
     </html>
   );

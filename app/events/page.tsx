@@ -1,13 +1,14 @@
 import { EventListContainer } from "@/components/events/EventListContainer";
 import { EventListItem } from "@/components/events/EventListItem";
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getAllEvents } from "@/utils/api";
 
-export default function Events() {
+export const revalidate = 0;
+
+export default async function AllEvents() {
+  const events = await getAllEvents();
+  console.log(events);
+
   return (
     <Card>
       <CardHeader>
@@ -15,21 +16,17 @@ export default function Events() {
       </CardHeader>
       <CardContent>
         <EventListContainer>
-          <EventListItem
-            href="/events/1"
-            name="Pope Benedict XVI visits Brno"
-            date="27. 9. 2009"
-          />
-          <EventListItem
-            href="/events/2"
-            name="Pope Benedict XVI visits Brno"
-            date="27. 9. 2009"
-          />
-          <EventListItem
-            href="/events/3"
-            name="Pope Benedict XVI visits Brno"
-            date="27. 9. 2009"
-          />
+          {events.map((event) => (
+            <EventListItem
+              href={`/events/${event.id}`}
+              name={event.name}
+              date={
+                event.dateTo
+                  ? `${event.dateFrom} – ${event.dateTo}`
+                  : event.dateFrom
+              }
+            />
+          ))}
         </EventListContainer>
       </CardContent>
     </Card>

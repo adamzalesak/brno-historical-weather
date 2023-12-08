@@ -1,7 +1,10 @@
-import { supabase } from "./supabase/client";
-import { EventListItem, EventDetail } from "./models";
+import { cookies } from "next/headers";
+import { EventDetail, EventListItem } from "./models";
+import { createClient } from "./supabase/server";
 
 export const getAllEvents = async () => {
+  const supabase = createClient();
+
   const { data, error } = await supabase
     .from("events")
     .select("id, name, dateFrom, dateTo");
@@ -10,6 +13,8 @@ export const getAllEvents = async () => {
 };
 
 export const getEventDetail = async (id: number) => {
+  const supabase = createClient();
+
   const { data, error } = await supabase
     .from("events")
     .select("*")

@@ -7,7 +7,6 @@ export const revalidate = 0;
 
 export default async function AllEvents() {
   const events = await getAllEvents();
-  console.log(events);
 
   return (
     <Card>

@@ -1,17 +1,17 @@
 import { EventListContainer } from "@/components/events/EventListContainer";
 import { EventListItem } from "@/components/events/EventListItem";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAllEvents } from "@/utils/api";
+import { getMyEvents } from "@/utils/api";
 
 export const revalidate = 0;
 
-export default async function AllEvents() {
-  const events = await getAllEvents();
+export default async function MyEvents() {
+  const events = await getMyEvents();
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>All Events</CardTitle>
+        <CardTitle>My Events</CardTitle>
       </CardHeader>
       <CardContent>
         <EventListContainer>

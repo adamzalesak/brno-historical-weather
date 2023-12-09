@@ -26,7 +26,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </div>
         </nav>
         <main className="bg-[url('/background-image.png')] bg-cover">
-          <div className="pt-8 min-h-[calc(100dvh-4rem)] flex flex-col items-center bg-card">
+          <div className="py-8 min-h-[calc(100dvh-4rem)] flex flex-col items-center bg-card">
             <div className="w-full px-8 max-w-5xl">{children}</div>
           </div>
         </main>

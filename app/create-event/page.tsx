@@ -20,11 +20,12 @@ import React, { useEffect } from "react";
 import { Database } from "@/types/supabase";
 import { DatePickerField } from "@/components/formFields/DatePickerField";
 import { SwitchField } from "@/components/formFields/SwitchField";
+import { createClient } from "@/utils/supabase/client";
 
 type NewEvent = Database["public"]["Tables"]["events"]["Insert"];
 
 const CreateEvent = () => {
-  // const supabase = createClient();
+  const supabase = createClient();
 
   const form = useForm<z.infer<typeof newEventSchema>>({
     resolver: zodResolver(newEventSchema),
@@ -47,11 +48,11 @@ const CreateEvent = () => {
   function onSubmit(values: z.infer<typeof newEventSchema>) {
     console.log("submitting");
     const createdAt = new Date().toISOString();
-    // const user = supabase.auth.getUser();
-    // if (!user) {
-    //   throw new Error("User is not logged in");
-    // }
-    // console.log(user);
+    const user = supabase.auth.getUser();
+    if (!user) {
+      throw new Error("User is not logged in");
+    }
+    console.log(user);
 
     const newEvent: NewEvent = {
       created_at: createdAt,
@@ -61,14 +62,10 @@ const CreateEvent = () => {
       owner_uuid: "admin-test-uuid",
       visibility: values.visibility,
     };
-    // supabase.from("events").insert([
-    //   {
-    //     created_at: createdAt,
-    //     name: values.name,
-    //     description: values.description,
-    //     link: values.linkWithMoreInfo,
-    //   },
-    // ]);
+    supabase
+      .from("events")
+      .insert(newEvent)
+      .then((r) => console.log(r));
     console.log(values);
   }
 

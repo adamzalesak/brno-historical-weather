@@ -1,9 +1,6 @@
-"use client";
-
 import * as React from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -15,13 +12,12 @@ import {
 
 export function DatePicker({
   className,
-  date, 
+  date,
   setDate,
 }: React.HTMLAttributes<HTMLDivElement> & {
   date?: Date;
   setDate: (date?: Date) => void;
 }) {
-
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>

@@ -11,16 +11,13 @@ import {
 } from "@/components/ui/popover";
 
 export function DatePicker({
-  selectedDate,
-  onDateChange,
   className,
-  date, 
+  date,
   setDate,
 }: React.HTMLAttributes<HTMLDivElement> & {
   date?: Date;
   setDate: (date?: Date) => void;
 }) {
-
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>
@@ -29,22 +26,18 @@ export function DatePicker({
             variant={"outline"}
             className={cn(
               "w-[300px] justify-start text-left font-normal",
-              !selectedDate && "text-muted-foreground",
+              !date && "text-muted-foreground",
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {selectedDate ? (
-              format(selectedDate, "PPP")
-            ) : (
-              <span>Pick a date</span>
-            )}
+            {date ? format(date, "PPP") : <span>Pick a date</span>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
           <Calendar
             mode="single"
-            selected={selectedDate}
-            onSelect={onDateChange}
+            selected={date}
+            onSelect={setDate}
             initialFocus
           />
         </PopoverContent>

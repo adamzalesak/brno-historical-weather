@@ -13,7 +13,7 @@ export const DatePickerField = ({
   return (
     <FormItem className="flex flex-col">
       <FormLabel>{label}</FormLabel>
-      <DatePicker selectedDate={field.value} onDateChange={field.onChange} />
+      <DatePicker date={field.value} setDate={field.onChange} />
     </FormItem>
   );
 };

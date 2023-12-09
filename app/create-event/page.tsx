@@ -46,27 +46,25 @@ const CreateEvent = () => {
   }, [isSingleDayEvent, form.getValues("dateFrom")]);
 
   function onSubmit(values: z.infer<typeof newEventSchema>) {
-    console.log("submitting");
-    const createdAt = new Date().toISOString();
-    const user = supabase.auth.getUser();
-    if (!user) {
-      throw new Error("User is not logged in");
-    }
-    console.log(user);
-
-    const newEvent: NewEvent = {
-      created_at: createdAt,
-      name: values.name,
-      description: values.description,
-      link: values.linkWithMoreInfo ?? null,
-      owner_uuid: "admin-test-uuid",
-      visibility: values.visibility,
-    };
-    supabase
-      .from("events")
-      .insert(newEvent)
-      .then((r) => console.log(r));
-    console.log(values);
+    supabase.auth.getUser().then((response) => {
+      const { user } = response.data;
+      if (!user) {
+        throw new Error("User is not logged in");
+      }
+      const newEvent: NewEvent = {
+        name: values.name,
+        description: values.description,
+        link: values.linkWithMoreInfo ?? null,
+        owner_uuid: user.id,
+        visibility: values.visibility,
+        dateFrom: values.dateFrom.toISOString(),
+        dateTo: values.isSingleDayEvent ? null : values.dateTo.toISOString(),
+      };
+      supabase
+        .from("events")
+        .insert(newEvent)
+        .then((r) => console.log("new event created", r));
+    });
   }
 
   return (

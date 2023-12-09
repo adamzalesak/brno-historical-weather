@@ -12,7 +12,7 @@ async function Header() {
 
   return (
     <header className="w-full flex justify-center">
-      <h1 className="text-2xl whitespace-nowrap self-center hidden sm:block">
+      <h1 className="text-2xl pr-3 whitespace-nowrap self-center hidden sm:block">
         <Link href="/">Brno Weather Capsule</Link>
       </h1>
 

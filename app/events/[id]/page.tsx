@@ -1,3 +1,4 @@
+import { WeatherWidget } from "@/components/WeatherWidget";
 import { getEventDetail } from "@/utils/api";
 
 type EventDetailParams = {
@@ -12,6 +13,7 @@ export default async function EventDetail({ params }: EventDetailParams) {
       {event.name}
       <br />
       {event.description}
+      <WeatherWidget value={0} unit={""} icon={""} text={""} />
     </div>
   );
 }

@@ -15,8 +15,12 @@ import {
 
 export function DatePicker({
   className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-  const [date, setDate] = React.useState<Date>();
+  date, 
+  setDate,
+}: React.HTMLAttributes<HTMLDivElement> & {
+  date?: Date;
+  setDate: (date?: Date) => void;
+}) {
 
   return (
     <div className={cn("grid gap-2", className)}>

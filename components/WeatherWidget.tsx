@@ -1,4 +1,4 @@
-const WeatherWidget = ({
+export const WeatherWidget = ({
     value, unit, icon, text
 }: {
     value: number,

@@ -13,7 +13,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,7 +27,6 @@ import React from "react";
 import { Database } from "@/types/supabase";
 import { DatePickerField } from "@/components/formFields/DatePickerField";
 import { Switch } from "@/components/ui/switch";
-import { Input } from "@/components/ui/input";
 
 type NewEvent = Database["public"]["Tables"]["events"]["Insert"];
 
@@ -88,10 +86,12 @@ const CreateEvent = () => {
                   <TextInputField label={"Event name"} field={field} />
                 )}
               />
-              <TextareaField
+              <FormField
                 control={form.control}
-                name="description"
-                label="Description"
+                name={"description"}
+                render={({ field }) => (
+                  <TextareaField field={field} label="Description" />
+                )}
               />
               <FormField
                 control={form.control}
@@ -103,11 +103,7 @@ const CreateEvent = () => {
                   />
                 )}
               />
-              <DatePickerField
-                control={form.control}
-                name={"dateFrom"}
-                label={"Date of event"}
-              />
+
               {/*switch if event is single date or two dates from and to*/}
               <FormField
                 control={form.control}
@@ -131,20 +127,28 @@ const CreateEvent = () => {
                   </FormItem>
                 )}
               />
-              <RadioGroupField
+              <FormField
                 control={form.control}
-                name="visibility"
-                label="Visibility"
-                options={[
-                  { value: "Public", label: "Public" },
-                  { value: "Private", label: "Private" },
-                ]}
+                name={"dateFrom"}
+                render={({ field }) => (
+                  <DatePickerField field={field} label={"Date of event"} />
+                )}
               />
-              <Button
-                type="submit"
-                className={"mt-8"}
-                onClick={() => console.log("clicked")}
-              >
+              <FormField
+                control={form.control}
+                name={"visibility"}
+                render={({ field }) => (
+                  <RadioGroupField
+                    field={field}
+                    label={"Visibility"}
+                    options={[
+                      { value: "Public", label: "Public" },
+                      { value: "Private", label: "Private" },
+                    ]}
+                  />
+                )}
+              />
+              <Button type="submit" className={"mt-8"}>
                 Submit
               </Button>
             </form>

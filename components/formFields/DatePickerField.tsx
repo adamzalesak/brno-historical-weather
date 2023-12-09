@@ -1,4 +1,7 @@
-import { FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { FormItem, FormLabel } from "@/components/ui/form";
+import React from "react";
+
+import { DatePicker } from "@/components/ui/date-picker";
 
 type DatePickerFieldProps = {
   control: any;
@@ -6,22 +9,17 @@ type DatePickerFieldProps = {
   label: string;
 };
 
-import React from "react";
-
-import { DatePicker } from "@/components/ui/date-picker";
-
-export const DatePickerField: React.FunctionComponent<DatePickerFieldProps> = ({
-  control,
-  name,
-}) => (
-  <FormField
-    control={control}
-    name={name}
-    render={({ field }) => (
-      <FormItem className="flex flex-col">
-        <FormLabel>Date of event</FormLabel>
-        <DatePicker selectedDate={field.value} onDateChange={field.onChange} />
-      </FormItem>
-    )}
-  />
-);
+export const DatePickerField = ({
+  label,
+  field,
+}: {
+  label: string;
+  field: any;
+}) => {
+  return (
+    <FormItem className="flex flex-col">
+      <FormLabel>{label}</FormLabel>
+      <DatePicker selectedDate={field.value} onDateChange={field.onChange} />
+    </FormItem>
+  );
+};

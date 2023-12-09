@@ -1,41 +1,46 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createClient } from "@/utils/supabase/server";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default function Login({
+export default function Register({
   searchParams,
 }: {
   searchParams: { message: string };
 }) {
-  const logIn = async (formData: FormData) => {
+  const register = async (formData: FormData) => {
     "use server";
 
+    const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: `${origin}/auth/callback`,
+      },
     });
 
     if (error) {
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/");
+    return redirect("/login?message=Check email to continue sign in process");
   };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Sign In</CardTitle>
+        <CardTitle>Register</CardTitle>
       </CardHeader>
       <CardContent>
         <form
           className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
-          action={logIn}
+          action={register}
         >
           <label className="text-md" htmlFor="email">
             Email
@@ -56,7 +61,7 @@ export default function Login({
             placeholder="••••••••"
             required
           />
-          <Button>Log-In</Button>
+          <Button>Register</Button>
           {searchParams?.message && (
             <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
               {searchParams.message}

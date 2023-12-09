@@ -1,5 +1,3 @@
-import { cookies } from "next/headers";
-import { EventDetail, EventListItem } from "./models";
 import { createClient } from "./supabase/server";
 
 export const getAllEvents = async () => {
@@ -9,7 +7,7 @@ export const getAllEvents = async () => {
     .from("events")
     .select("id, name, dateFrom, dateTo");
   if (error) throw error;
-  return data as EventListItem[];
+  return data;
 };
 
 export const getEventDetail = async (id: number) => {
@@ -21,5 +19,5 @@ export const getEventDetail = async (id: number) => {
     .eq("id", id)
     .single();
   if (error) throw error;
-  return data as EventDetail;
+  return data;
 };

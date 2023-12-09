@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { Form } from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,8 +18,11 @@ import {
   FormRadioGroupField,
   FormTextareaField,
 } from "@/components/FormParts";
+import { createClient } from "@/utils/supabase/client";
 
 const CreateEvent = () => {
+  const supabase = createClient();
+
   const form = useForm<z.infer<typeof newEventSchema>>({
     resolver: zodResolver(newEventSchema),
     defaultValues: {
@@ -30,6 +34,15 @@ const CreateEvent = () => {
   });
 
   function onSubmit(values: z.infer<typeof newEventSchema>) {
+    const createdAt = new Date().toISOString();
+    const user = supabase.auth.getUser();
+    supabase.from("events").insert({
+      created_at: createdAt,
+      name: values.name,
+      description: values.description,
+      link: values.linkWithMoreInfo,
+    });
+
     console.log(values);
   }
 

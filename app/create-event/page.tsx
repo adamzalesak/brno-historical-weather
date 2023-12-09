@@ -19,6 +19,9 @@ import {
   FormTextareaField,
 } from "@/components/FormParts";
 import { createClient } from "@/utils/supabase/client";
+import { Database } from "@/types/supabase";
+
+type EventType = Database["public"]["Tables"]["events"]["Insert"];
 
 const CreateEvent = () => {
   const supabase = createClient();
@@ -29,20 +32,34 @@ const CreateEvent = () => {
       name: "",
       description: "",
       linkWithMoreInfo: "",
-      visibility: "public",
+      visibility: "Public",
     },
   });
 
   function onSubmit(values: z.infer<typeof newEventSchema>) {
     const createdAt = new Date().toISOString();
-    const user = supabase.auth.getUser();
-    supabase.from("events").insert({
+    // const user = supabase.auth.getUser();
+    // if (!user) {
+    //   throw new Error("User is not logged in");
+    // }
+    // console.log(user);
+
+    const newEvent: EventType = {
       created_at: createdAt,
       name: values.name,
       description: values.description,
-      link: values.linkWithMoreInfo,
-    });
-
+      link: values.linkWithMoreInfo ?? null,
+      owner_uuid: "admin-test-uuid",
+      visibility: values.visibility,
+    };
+    // supabase.from("events").insert([
+    //   {
+    //     created_at: createdAt,
+    //     name: values.name,
+    //     description: values.description,
+    //     link: values.linkWithMoreInfo,
+    //   },
+    // ]);
     console.log(values);
   }
 
@@ -70,8 +87,8 @@ const CreateEvent = () => {
                 name="visibility"
                 label="Visibility"
                 options={[
-                  { value: "public", label: "Public" },
-                  { value: "private", label: "Private" },
+                  { value: "Public", label: "Public" },
+                  { value: "Private", label: "Private" },
                 ]}
               />
 

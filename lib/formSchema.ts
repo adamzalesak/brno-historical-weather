@@ -9,5 +9,5 @@ export const newEventSchema = z.object({
     .max(50),
   description: z.string().min(2).max(50),
   linkWithMoreInfo: z.string().optional(),
-  visibility: z.enum(["private", "public"]),
+  visibility: z.enum(["Private", "Public"]),
 });

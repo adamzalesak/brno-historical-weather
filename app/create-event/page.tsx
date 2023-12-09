@@ -6,24 +6,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { Form } from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { newEventSchema } from "@/lib/formSchema";
-
-import { createClient } from "@/utils/supabase/client";
-import { Database } from "@/types/supabase";
 import { RadioGroupField } from "@/components/formFields/RadioGroupField";
 import { TextareaField } from "@/components/formFields/TextAreaField";
 import { TextInputField } from "@/components/formFields/TextInputField";
 
+import React from "react";
+import { Database } from "@/types/supabase";
+import { DatePickerField } from "@/components/formFields/DatePickerField";
+
 type NewEvent = Database["public"]["Tables"]["events"]["Insert"];
 
 const CreateEvent = () => {
-  const supabase = createClient();
+  // const supabase = createClient();
 
   const form = useForm<z.infer<typeof newEventSchema>>({
     resolver: zodResolver(newEventSchema),
@@ -36,6 +36,7 @@ const CreateEvent = () => {
   });
 
   function onSubmit(values: z.infer<typeof newEventSchema>) {
+    console.log("submitting");
     const createdAt = new Date().toISOString();
     // const user = supabase.auth.getUser();
     // if (!user) {
@@ -81,6 +82,11 @@ const CreateEvent = () => {
                 name={"linkWithMoreInfo"}
                 label={"Link with more info (optional)"}
               />
+              <DatePickerField
+                control={form.control}
+                name={"dateFrom"}
+                label={"Date of event"}
+              />
               <RadioGroupField
                 control={form.control}
                 name="visibility"
@@ -90,8 +96,11 @@ const CreateEvent = () => {
                   { value: "Private", label: "Private" },
                 ]}
               />
-
-              <Button type="submit" className={"mt-8"}>
+              <Button
+                type="submit"
+                className={"mt-8"}
+                onClick={() => console.log("clicked")}
+              >
                 Submit
               </Button>
             </form>

@@ -24,10 +24,15 @@ const DatePickersDivider = () => {
 };
 
 const DateSelector = () => {
+  const [date, setDate] = React.useState<Date>();
   return (
     <Card>
       <CardContent>
-        <DatePicker className={"pt-8"} />
+        <DatePicker
+          className={"pt-8"}
+          selectedDate={date}
+          onDateChange={setDate}
+        />
         <DatePickersDivider />
         <DatePickerWithRange />
       </CardContent>

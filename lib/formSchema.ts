@@ -10,4 +10,7 @@ export const newEventSchema = z.object({
   description: z.string().min(2).max(50),
   linkWithMoreInfo: z.string().optional(),
   visibility: z.enum(["Private", "Public"]),
+  dateFrom: z.date(),
+  // dateTo: z.date(),
+  // singleDayEvent: z.boolean(),
 });

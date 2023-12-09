@@ -3,12 +3,6 @@ import React from "react";
 
 import { DatePicker } from "@/components/ui/date-picker";
 
-type DatePickerFieldProps = {
-  control: any;
-  name: string;
-  label: string;
-};
-
 export const DatePickerField = ({
   label,
   field,

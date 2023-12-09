@@ -6,14 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormField } from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -23,10 +16,10 @@ import { RadioGroupField } from "@/components/formFields/RadioGroupField";
 import { TextareaField } from "@/components/formFields/TextAreaField";
 import { TextInputField } from "@/components/formFields/TextInputField";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Database } from "@/types/supabase";
 import { DatePickerField } from "@/components/formFields/DatePickerField";
-import { Switch } from "@/components/ui/switch";
+import { SwitchField } from "@/components/formFields/SwitchField";
 
 type NewEvent = Database["public"]["Tables"]["events"]["Insert"];
 
@@ -40,8 +33,16 @@ const CreateEvent = () => {
       description: "",
       linkWithMoreInfo: "",
       visibility: "Public",
+      isSingleDayEvent: true,
     },
   });
+
+  const isSingleDayEvent = form.watch("isSingleDayEvent");
+  useEffect(() => {
+    if (isSingleDayEvent) {
+      form.setValue("dateTo", form.getValues("dateFrom"));
+    }
+  }, [isSingleDayEvent, form.getValues("dateFrom")]);
 
   function onSubmit(values: z.infer<typeof newEventSchema>) {
     console.log("submitting");
@@ -103,37 +104,32 @@ const CreateEvent = () => {
                   />
                 )}
               />
-
-              {/*switch if event is single date or two dates from and to*/}
               <FormField
                 control={form.control}
-                name="singleDayEvent"
+                name="isSingleDayEvent"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                    <div className="space-y-0.5">
-                      <FormLabel className="text-base">
-                        Marketing emails
-                      </FormLabel>
-                      <FormDescription>
-                        Receive emails about new products, features, and more.
-                      </FormDescription>
-                    </div>
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                  </FormItem>
+                  <SwitchField field={field} label={"Single day event"} />
                 )}
               />
               <FormField
                 control={form.control}
                 name={"dateFrom"}
                 render={({ field }) => (
-                  <DatePickerField field={field} label={"Date of event"} />
+                  <DatePickerField
+                    field={field}
+                    label={isSingleDayEvent ? "Date of event" : "From"}
+                  />
                 )}
               />
+              {!isSingleDayEvent && (
+                <FormField
+                  control={form.control}
+                  name={"dateTo"}
+                  render={({ field }) => (
+                    <DatePickerField field={field} label={"To"} />
+                  )}
+                />
+              )}
               <FormField
                 control={form.control}
                 name={"visibility"}

@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
@@ -11,16 +12,23 @@ export const metadata = {
   description: "Historical weather in Brno",
 };
 
-export default function RootLayout({
-  children,
-}: {
+type RootLayoutProps = {
   children: React.ReactNode;
-}) {
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="bg-background text-foreground">
-        <main className="min-h-screen flex flex-col items-center">
-          {children}
+      <body className="text-foreground flex flex-col">
+        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+          <div className="w-full max-w-5xl flex justify-between items-center p-3 text-sm">
+            <Header />
+          </div>
+        </nav>
+        <main className="bg-[url('/background-image.png')] bg-cover">
+          <div className="pt-8 min-h-[calc(100dvh-4rem)] flex flex-col items-center bg-card">
+            <div className="w-full px-8 max-w-5xl">{children}</div>
+          </div>
         </main>
       </body>
     </html>

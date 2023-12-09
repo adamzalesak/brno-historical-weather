@@ -14,11 +14,13 @@ export function DatePicker({
   selectedDate,
   onDateChange,
   className,
-}: {
-  selectedDate: Date | undefined;
-  onDateChange: (date: Date | undefined) => void;
-  className?: string;
+  date, 
+  setDate,
+}: React.HTMLAttributes<HTMLDivElement> & {
+  date?: Date;
+  setDate: (date?: Date) => void;
 }) {
+
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>

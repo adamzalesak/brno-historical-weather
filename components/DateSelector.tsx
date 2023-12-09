@@ -1,12 +1,13 @@
 "use client";
 
-import * as React from "react";
-
 import { Button } from "@/components/ui/button";
-
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { DatePicker } from "@/components/ui/date-picker";
 import { DatePickerWithRange } from "@/components/ui/date-range-picker";
+import { addDays } from "date-fns";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { DateRange } from "react-day-picker";
 
 const DatePickersDivider = () => {
   return (
@@ -24,20 +25,56 @@ const DatePickersDivider = () => {
 };
 
 const DateSelector = () => {
-  const [date, setDate] = React.useState<Date>();
+  const router = useRouter();
+
+  const [singleDate, setSingleDate] = React.useState<Date>();
+  const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
+    from: undefined,
+    to: undefined,
+  });
+
+  const formatDate = (date?: Date) => {
+    return date?.toISOString().split("T")[0];
+  };
+
+  const handleButtonClick = () => {
+    if (singleDate) {
+      router.push(`singleDate?date=${formatDate(singleDate)}`);
+    } else if (dateRange) {
+      router.push(
+        `dateRange?dateFrom=${formatDate(dateRange.from)}&dateTo=${formatDate(
+          dateRange.to
+        )}`
+      );
+    }
+  };
+
   return (
     <Card>
       <CardContent>
         <DatePicker
-          className={"pt-8"}
-          selectedDate={date}
-          onDateChange={setDate}
+          date={singleDate}
+          setDate={(date) => {
+            setDateRange({ from: undefined, to: undefined });
+            setSingleDate(date);
+          }}
+          className="pt-8"
         />
         <DatePickersDivider />
-        <DatePickerWithRange />
+        <DatePickerWithRange
+          date={dateRange}
+          setDate={(date) => {
+            setSingleDate(undefined);
+            setDateRange(date);
+          }}
+        />
       </CardContent>
       <CardFooter>
-        <Button className={"w-full"} variant={"default"}>
+        <Button
+          className="w-full"
+          onClick={handleButtonClick}
+          disabled={!singleDate && (!dateRange?.from || !dateRange?.to)}
+        >
           Explore
         </Button>
       </CardFooter>

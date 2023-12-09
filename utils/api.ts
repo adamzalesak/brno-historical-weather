@@ -41,3 +41,27 @@ export const getEventDetail = async (id: number) => {
   if (error) throw error;
   return data;
 };
+
+export const getWeatherForDay = async (date: Date) => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("weather")
+    .select("*")
+    .eq("date", date.toISOString())
+    .single();
+  if (error) throw error;
+  return data;
+};
+
+export const getWeatherForInterval = async (dateFrom: Date, dateTo: Date) => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("weather")
+    .select("*")
+    .gte("date", dateFrom.toISOString())
+    .lte("date", dateTo.toISOString());
+  if (error) throw error;
+  return data;
+};

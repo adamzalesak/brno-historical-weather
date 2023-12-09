@@ -1,6 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Button } from "./ui/button";
 
@@ -29,7 +28,7 @@ export default async function User() {
   ) : (
     <>
       <Button asChild variant="secondary">
-        <Link href="/login">Register</Link>
+        <Link href="/register">Register</Link>
       </Button>
       <Button asChild variant="secondary">
         <Link href="/login">Log-In</Link>

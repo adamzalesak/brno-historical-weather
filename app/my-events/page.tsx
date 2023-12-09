@@ -1,7 +1,9 @@
 import { EventListContainer } from "@/components/events/EventListContainer";
 import { EventListItem } from "@/components/events/EventListItem";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getMyEvents } from "@/utils/api";
+import Link from "next/link";
 
 export const revalidate = 0;
 
@@ -29,6 +31,11 @@ export default async function MyEvents() {
             />
           ))}
         </EventListContainer>
+        <div className="mt-4 flex justify-end">
+          <Button asChild>
+            <Link href="/create-event">Create Event</Link>
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

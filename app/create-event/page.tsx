@@ -13,15 +13,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { newEventSchema } from "@/lib/formSchema";
-import {
-  FormInputField,
-  FormRadioGroupField,
-  FormTextareaField,
-} from "@/components/FormParts";
+
 import { createClient } from "@/utils/supabase/client";
 import { Database } from "@/types/supabase";
+import { RadioGroupField } from "@/components/formFields/RadioGroupField";
+import { TextareaField } from "@/components/formFields/TextAreaField";
+import { TextInputField } from "@/components/formFields/TextInputField";
 
-type EventType = Database["public"]["Tables"]["events"]["Insert"];
+type NewEvent = Database["public"]["Tables"]["events"]["Insert"];
 
 const CreateEvent = () => {
   const supabase = createClient();
@@ -44,7 +43,7 @@ const CreateEvent = () => {
     // }
     // console.log(user);
 
-    const newEvent: EventType = {
+    const newEvent: NewEvent = {
       created_at: createdAt,
       name: values.name,
       description: values.description,
@@ -71,18 +70,18 @@ const CreateEvent = () => {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormInputField control={form.control} name="name" label="Name" />
-              <FormTextareaField
+              <TextInputField control={form.control} name="name" label="Name" />
+              <TextareaField
                 control={form.control}
                 name="description"
                 label="Description"
               />
-              <FormInputField
+              <TextInputField
                 control={form.control}
                 name={"linkWithMoreInfo"}
                 label={"Link with more info (optional)"}
               />
-              <FormRadioGroupField
+              <RadioGroupField
                 control={form.control}
                 name="visibility"
                 label="Visibility"

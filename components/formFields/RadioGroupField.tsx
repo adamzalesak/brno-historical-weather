@@ -1,71 +1,12 @@
+import React from "react";
 import {
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-
-import React from "react";
-
-interface FormInputFieldProps {
-  control: any;
-  name: string;
-  label: string;
-}
-
-const FormInputField: React.FC<FormInputFieldProps> = ({
-  control,
-  name,
-  label,
-}) => {
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            <Input {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-interface FormTextareaFieldProps {
-  control: any;
-  name: string;
-  label: string;
-}
-
-const FormTextareaField: React.FC<FormTextareaFieldProps> = ({
-  control,
-  name,
-  label,
-}) => {
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            <Textarea {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
 
 interface FormRadioGroupFieldProps {
   control: any;
@@ -74,7 +15,7 @@ interface FormRadioGroupFieldProps {
   options: { value: string; label: string }[];
 }
 
-const FormRadioGroupField: React.FC<FormRadioGroupFieldProps> = ({
+export const RadioGroupField: React.FC<FormRadioGroupFieldProps> = ({
   control,
   name,
   label,
@@ -112,5 +53,3 @@ const FormRadioGroupField: React.FC<FormRadioGroupFieldProps> = ({
     />
   );
 };
-
-export { FormInputField, FormTextareaField, FormRadioGroupField };

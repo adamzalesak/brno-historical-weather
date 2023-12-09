@@ -6,7 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,6 +27,8 @@ import { TextInputField } from "@/components/formFields/TextInputField";
 import React from "react";
 import { Database } from "@/types/supabase";
 import { DatePickerField } from "@/components/formFields/DatePickerField";
+import { Switch } from "@/components/ui/switch";
+import { Input } from "@/components/ui/input";
 
 type NewEvent = Database["public"]["Tables"]["events"]["Insert"];
 
@@ -71,21 +81,55 @@ const CreateEvent = () => {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <TextInputField control={form.control} name="name" label="Name" />
+              <FormField
+                control={form.control}
+                name={"name"}
+                render={({ field }) => (
+                  <TextInputField label={"Event name"} field={field} />
+                )}
+              />
               <TextareaField
                 control={form.control}
                 name="description"
                 label="Description"
               />
-              <TextInputField
+              <FormField
                 control={form.control}
                 name={"linkWithMoreInfo"}
-                label={"Link with more info (optional)"}
+                render={({ field }) => (
+                  <TextInputField
+                    field={field}
+                    label={"Link with more info (optional)"}
+                  />
+                )}
               />
               <DatePickerField
                 control={form.control}
                 name={"dateFrom"}
                 label={"Date of event"}
+              />
+              {/*switch if event is single date or two dates from and to*/}
+              <FormField
+                control={form.control}
+                name="singleDayEvent"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">
+                        Marketing emails
+                      </FormLabel>
+                      <FormDescription>
+                        Receive emails about new products, features, and more.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
               <RadioGroupField
                 control={form.control}

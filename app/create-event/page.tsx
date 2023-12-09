@@ -76,28 +76,28 @@ const CreateEvent = () => {
         <CardDescription>Edit your event's attributes</CardDescription>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
-                name={"name"}
+                name="name"
                 render={({ field }) => (
-                  <TextInputField label={"Event name"} field={field} />
+                  <TextInputField label="Event name" field={field} />
                 )}
               />
               <FormField
                 control={form.control}
-                name={"description"}
+                name="description"
                 render={({ field }) => (
                   <TextareaField field={field} label="Description" />
                 )}
               />
               <FormField
                 control={form.control}
-                name={"linkWithMoreInfo"}
+                name="linkWithMoreInfo"
                 render={({ field }) => (
                   <TextInputField
                     field={field}
-                    label={"Link with more info (optional)"}
+                    label="Link with more info (optional)"
                   />
                 )}
               />
@@ -105,12 +105,12 @@ const CreateEvent = () => {
                 control={form.control}
                 name="isSingleDayEvent"
                 render={({ field }) => (
-                  <SwitchField field={field} label={"Single day event"} />
+                  <SwitchField field={field} label="Single day event" />
                 )}
               />
               <FormField
                 control={form.control}
-                name={"dateFrom"}
+                name="dateFrom"
                 render={({ field }) => (
                   <DatePickerField
                     field={field}
@@ -121,7 +121,7 @@ const CreateEvent = () => {
               {!isSingleDayEvent && (
                 <FormField
                   control={form.control}
-                  name={"dateTo"}
+                  name="dateTo"
                   render={({ field }) => (
                     <DatePickerField field={field} label={"To"} />
                   )}
@@ -129,11 +129,11 @@ const CreateEvent = () => {
               )}
               <FormField
                 control={form.control}
-                name={"visibility"}
+                name="visibility"
                 render={({ field }) => (
                   <RadioGroupField
                     field={field}
-                    label={"Visibility"}
+                    label="Visibility"
                     options={[
                       { value: "Public", label: "Public" },
                       { value: "Private", label: "Private" },

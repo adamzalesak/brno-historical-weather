@@ -9,7 +9,12 @@ export const AppProgressBar = ({
 }) => {
   return (
     <>
-      <ProgressBar color="black" />
+      <ProgressBar
+        color="black"
+        options={{
+          showSpinner: false,
+        }}
+      />
       {children}
     </>
   );

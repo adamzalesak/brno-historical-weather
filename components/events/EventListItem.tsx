@@ -17,9 +17,9 @@ export const EventListItem = ({
   return (
     <Link
       href={href}
-      className="flex gap-2 bg-card p-4 rounded-lg border text-card-foreground shadow-sm"
+      className="flex flex-col sm:flex-row gap-1 sm:gap-2 bg-card p-4 rounded-lg border text-card-foreground shadow-sm"
     >
-      <Badge>{date}</Badge>
+      <Badge className="self-start">{date}</Badge>
       <span>{name}</span>
       {isPrivate && <Badge className="ml-auto">Private</Badge>}
     </Link>

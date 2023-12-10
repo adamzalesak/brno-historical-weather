@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { BackButton } from "./BackButton";
 import User from "./User";
+import { Home } from "lucide-react";
 
 async function Header() {
   const supabase = createClient();
@@ -11,12 +12,16 @@ async function Header() {
     data: { user },
   } = await supabase.auth.getUser();
 
-
   return (
     <header className="w-full flex justify-center">
       <BackButton />
-      <h1 className="text-2xl pr-3 whitespace-nowrap self-center hidden sm:block">
-        <Link href="/">Brno Weather Capsule</Link>
+      <Button variant="ghost" className="md:hidden">
+        <Link href="/">
+          <Home className="w-4" />
+        </Link>
+      </Button>
+      <h1 className="text-2xl pr-3 whitespace-nowrap self-center hidden md:block">
+        <Link href="/">Brno Historical Weather</Link>
       </h1>
 
       <div className="flex justify-end items-center gap-2 ml-auto">

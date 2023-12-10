@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, StepBackIcon } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
@@ -14,7 +14,7 @@ export const BackButton = () => {
 
   return (
     <Button variant="ghost" onClick={() => router.back()} className="mr-1">
-      <ArrowLeft />
+      <ArrowLeft className="w-4 sm:w-auto" />
     </Button>
   );
 };

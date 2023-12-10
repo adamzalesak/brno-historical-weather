@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Button } from "../ui/button";
+import { LogOut } from "lucide-react";
 
 export default async function User() {
   const supabase = createClient();
@@ -20,9 +21,11 @@ export default async function User() {
 
   return user ? (
     <>
-      {user.email}
+      <span className="hidden md:block">{user.email}</span>
       <form action={signOut}>
-        <Button variant="secondary">Logout</Button>
+        <Button variant="secondary">
+          <LogOut className="w-4 sm:w-auto" />
+        </Button>
       </form>
     </>
   ) : (

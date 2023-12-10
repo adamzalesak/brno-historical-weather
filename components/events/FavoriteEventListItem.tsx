@@ -10,7 +10,6 @@ type EventListItemProps = {
   date: string;
   name: string;
   href: string;
-  isPrivate?: boolean;
 };
 
 export const FavoriteEventListItem = ({

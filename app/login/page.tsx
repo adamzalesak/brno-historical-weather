@@ -30,7 +30,7 @@ export default function Login({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Sign In</CardTitle>
+        <CardTitle>Log-In</CardTitle>
       </CardHeader>
       <CardContent>
         <form

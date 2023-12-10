@@ -30,11 +30,11 @@ export default async function EventDetail({
     const isMyFavorite = await getIsMyFavoriteEvent(params.id);
 
     return (
-      <div className={"grid grid-cols-5 gap-4"}>
-        <Card className={"col-span-3 "}>
+      <div className="grid md:grid-cols-5 gap-4">
+        <Card className="md:col-span-3">
           <CardHeader>
             <CardTitle>
-              <div className={"flex justify-between"}>
+              <div className="flex justify-between">
                 {event.name}
                 <AddToFavoritesButton
                   id={params.id}
@@ -49,14 +49,14 @@ export default async function EventDetail({
           </CardHeader>
           <CardContent>{event.description}</CardContent>
           {event.link !== null && event.link !== "" && (
-            <CardFooter className={"justify-end"}>
+            <CardFooter className="justify-end">
               <Button variant="link" asChild>
                 <Link href={event.link}>Learn more</Link>
               </Button>
             </CardFooter>
           )}
         </Card>
-        <div className={"col-span-2"}>
+        <div className="md:col-span-2">
           <Weather dateFrom={event.dateFrom} dateTo={event.dateTo} />
         </div>
       </div>

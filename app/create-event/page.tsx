@@ -17,12 +17,10 @@ import { TextareaField } from "@/components/formFields/TextAreaField";
 import { TextInputField } from "@/components/formFields/TextInputField";
 
 import React, { useEffect } from "react";
-import { Database } from "@/types/supabase";
 import { DatePickerField } from "@/components/formFields/DatePickerField";
 import { SwitchField } from "@/components/formFields/SwitchField";
 import { createClient } from "@/utils/supabase/client";
-
-type NewEvent = Database["public"]["Tables"]["events"]["Insert"];
+import { EventCreate } from "@/types/custom";
 
 const CreateEvent = () => {
   const supabase = createClient();
@@ -51,7 +49,7 @@ const CreateEvent = () => {
       if (!user) {
         throw new Error("User is not logged in");
       }
-      const newEvent: NewEvent = {
+      const newEvent: EventCreate = {
         name: values.name,
         description: values.description,
         link: values.linkWithMoreInfo ?? null,

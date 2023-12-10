@@ -11,10 +11,29 @@ export default async function WeatherForDay({ date }: { date: Date }) {
   console.log(weather);
   const temp = weather.max_temp ?? 0;
   return (
-    <WeatherWidget
-      titleText={`${Math.round(temp)}°C`}
-      icon={<MdOutlineWbSunny color={"white"} />}
-      footerText={"sunny"}
-    />
+    <div>
+      <div className="grid grid-cols-2 gap-4 w-auto">
+        <WeatherWidget
+          titleText={`${Math.round(temp)}°C`}
+          icon={<MdOutlineWbSunny />}
+          footerText={"sunny"}
+        />
+        <WeatherWidget
+          titleText={`${Math.round(temp)}°C`}
+          icon={<MdOutlineWbSunny />}
+          footerText={"sunny"}
+        />
+        <WeatherWidget
+          titleText={`${Math.round(temp)}°C`}
+          icon={<MdOutlineWbSunny />}
+          footerText={"sunny"}
+        />
+        <WeatherWidget
+          titleText={`${Math.round(temp)}°C`}
+          icon={<MdOutlineWbSunny />}
+          footerText={"sunny"}
+        />
+      </div>
+    </div>
   );
 }

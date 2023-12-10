@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { DatePicker } from "@/components/ui/date-picker";
 import { DatePickerWithRange } from "@/components/ui/date-range-picker";
+import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { DateRange } from "react-day-picker";
@@ -32,14 +33,14 @@ const DateSelector = () => {
     to: undefined,
   });
 
-  const formatDate = (date?: Date) => {
-    return date?.toISOString().split("T")[0];
+  const formatDate = (date: Date) => {
+    return format(date, "yyyy-MM-dd");
   };
 
   const handleButtonClick = () => {
     if (singleDate) {
       router.push(`singleDate?date=${formatDate(singleDate)}`);
-    } else if (dateRange) {
+    } else if (dateRange?.from && dateRange?.to) {
       router.push(
         `dateRange?dateFrom=${formatDate(dateRange.from)}&dateTo=${formatDate(
           dateRange.to

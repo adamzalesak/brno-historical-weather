@@ -21,9 +21,13 @@ import { SwitchField } from "@/components/formFields/SwitchField";
 import { EventCreate } from "@/types/supabaseAbstractions";
 import { createClient } from "@/utils/supabase/client";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const CreateEvent = () => {
+  const router = useRouter();
   const supabase = createClient();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof newEventSchema>>({
     resolver: zodResolver(newEventSchema),
@@ -49,6 +53,7 @@ const CreateEvent = () => {
       if (!user) {
         throw new Error("User is not logged in");
       }
+
       const newEvent: EventCreate = {
         name: values.name,
         description: values.description,
@@ -58,10 +63,15 @@ const CreateEvent = () => {
         dateFrom: values.dateFrom.toISOString(),
         dateTo: values.isSingleDayEvent ? null : values.dateTo.toISOString(),
       };
+
       supabase
         .from("events")
         .insert(newEvent)
-        .then((r) => console.log("new event created", r));
+        .select("id")
+        .then((r) => {
+          toast({ title: "Event created successfully" });
+          router.push(`/events/${r.data?.[0].id}`);
+        });
     });
   }
 

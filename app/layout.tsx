@@ -1,5 +1,6 @@
 import { AppProgressBar } from "@/components/ProgressBar";
 import Header from "@/components/header/Header";
+import { Toaster } from "@/components/ui/toaster";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="text-foreground flex flex-col">
         <>
           <AppProgressBar />
+          <Toaster />
           <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
             <div className="justify-between items-center w-full max-w-5xl flex p-3">
               <Header />

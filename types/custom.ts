@@ -1,5 +1,9 @@
-import { Database } from "@/types/supabase";
-
-export type EventCreate = Database["public"]["Tables"]["events"]["Insert"];
-
-export type Weather = Database["public"]["Tables"]["weather"]["Row"];
+export interface WeatherIntervalSummary {
+  avgAirPressure: number;
+  avgTemperature: number;
+  avgSunshine: number;
+  avgPrecipitation: number;
+  avgWindSpeed: number;
+  numberOfRainyDays: number;
+  numberOfSunnyDays: number;
+}

@@ -1,10 +1,10 @@
 "use client";
 
-import { Weather } from "@/types/custom";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { WeatherRow } from "@/types/supabaseAbstractions";
 
 interface WeatherIntervalWidgetProps {
-  weather: Weather[];
+  weather: WeatherRow[];
 }
 
 export default async function WeatherIntervalWidget({

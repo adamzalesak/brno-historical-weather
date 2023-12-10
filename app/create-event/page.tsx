@@ -20,7 +20,7 @@ import React, { useEffect } from "react";
 import { DatePickerField } from "@/components/formFields/DatePickerField";
 import { SwitchField } from "@/components/formFields/SwitchField";
 import { createClient } from "@/utils/supabase/client";
-import { EventCreate } from "@/types/custom";
+import { EventCreate } from "@/types/supabaseAbstractions";
 
 const CreateEvent = () => {
   const supabase = createClient();

@@ -30,12 +30,12 @@ export default async function WeatherForDay({ date }: { date: Date }) {
 
   return (
     <div>
-      <div className="grid grid-cols-2 gap-4 w-auto">
-        <div className="grid grid-cols-2 gap-4 w-auto">
-          {widgetElements.map((widgetElement, index) => (
-            <div key={index}>{widgetElement}</div>
-          ))}
-        </div>
+      <div className="grid grid-cols-2 gap-4">
+        {widgetElements.map((widgetElement, index) => (
+          <div key={index} className={"col-span-1"}>
+            {widgetElement}
+          </div>
+        ))}
       </div>
     </div>
   );

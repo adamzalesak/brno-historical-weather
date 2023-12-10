@@ -31,8 +31,8 @@ export default async function EventDetail({
   }
 
   return (
-    <>
-      <Card>
+    <div className={"grid grid-cols-5 gap-4"}>
+      <Card className={"col-span-3 "}>
         <CardHeader>
           <CardTitle>
             <div className={"flex justify-between"}>
@@ -56,7 +56,9 @@ export default async function EventDetail({
           </CardFooter>
         )}
       </Card>
-      <Weather dateFrom={event.dateFrom} dateTo={event.dateTo} />
-    </>
+      <div className={"col-span-2"}>
+        <Weather dateFrom={event.dateFrom} dateTo={event.dateTo} />
+      </div>
+    </div>
   );
 }

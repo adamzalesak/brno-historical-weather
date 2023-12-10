@@ -32,7 +32,7 @@ export default async function WeatherForInterval({
   } = getWeatherIntervalSummary(weather);
 
   return (
-    <div className="grid grid-cols-2 gap-4 w-auto">
+    <div className="grid grid-cols-1 gap-4 w-auto">
       <div className="grid grid-cols-2 gap-4 w-auto">
         {buildSunnyDaysCountWidget(numberOfSunnyDays)}
         {buildRainyDaysCountWidget(numberOfRainyDays)}

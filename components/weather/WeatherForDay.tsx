@@ -6,7 +6,12 @@ import {
 } from "@/components/weather/widgetBuilders";
 
 export default async function WeatherForDay({ date }: { date: Date }) {
-  const weather = await getWeatherForDay(date);
+  let weather = null;
+  try {
+    weather = await getWeatherForDay(date);
+  } catch (e) {
+    console.error(e);
+  }
   if (!weather) return null;
 
   const { avg_temp, precipitation, sunshine, wind_speed, snow } = weather;
@@ -14,7 +19,7 @@ export default async function WeatherForDay({ date }: { date: Date }) {
   const widgetElements = [];
   if (avg_temp)
     widgetElements.push(
-      buildTemperatureWidget(avg_temp, precipitation ?? 0, sunshine ?? 0)
+      buildTemperatureWidget(avg_temp, precipitation ?? 0, sunshine ?? 0),
     );
 
   if (wind_speed && wind_speed > 0) {

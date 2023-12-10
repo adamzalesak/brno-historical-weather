@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CalendarHeart } from "lucide-react";
 import { NotFound } from "@/components/NotFound";
+import Weather from "@/components/Weather";
 
 type EventDetailParams = {
   params: { id: number };
@@ -55,7 +56,7 @@ export default async function EventDetail({ params }: EventDetailParams) {
           </CardFooter>
         )}
       </Card>
-      {/*<Weather dateFrom={event.dateFrom} dateTo={event.dateTo} />*/}
+      <Weather dateFrom={event.dateFrom} dateTo={event.dateTo} />
     </>
   );
 }

@@ -15,7 +15,12 @@ export default async function WeatherForInterval({
   dateFrom: Date;
   dateTo: Date;
 }) {
-  const weather = await getWeatherForInterval(dateFrom, dateTo);
+  let weather = null;
+  try {
+    weather = await getWeatherForInterval(dateFrom, dateTo);
+  } catch (e) {
+    console.error(e);
+  }
   if (!weather || weather.length === 0) {
     return null; // TODO card no weather data
   }

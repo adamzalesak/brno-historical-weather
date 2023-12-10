@@ -7,7 +7,7 @@ interface WeatherIntervalWidgetProps {
   weather: WeatherRow[];
 }
 
-export default async function WeatherIntervalWidget({
+export default function WeatherIntervalWidget({
   weather,
 }: WeatherIntervalWidgetProps) {
   return (
@@ -27,7 +27,7 @@ export default async function WeatherIntervalWidget({
           axisLine={false}
           tickFormatter={(value) => `$${value}`}
         />
-        <Bar dataKey="air_moisture" fill="#adfa1d" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="avg_temp" fill="#adfa1d" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );

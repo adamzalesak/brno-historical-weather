@@ -1,5 +1,4 @@
 import { getEventDetail } from "@/utils/api";
-import Weather from "@/components/Weather";
 import {
   Card,
   CardContent,
@@ -12,15 +11,23 @@ import { formatDates } from "@/utils/formatDates";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CalendarHeart } from "lucide-react";
+import { NotFound } from "@/components/NotFound";
 
 type EventDetailParams = {
   params: { id: number };
 };
 
 export default async function EventDetail({ params }: EventDetailParams) {
-  const event = await getEventDetail(params.id);
-  console.log("EVENT DETAIL");
-  console.log(event);
+  let event = null;
+  try {
+    event = await getEventDetail(params.id);
+  } catch (e) {
+    console.error(e);
+  }
+
+  if (!event) {
+    return <NotFound />;
+  }
 
   return (
     <>
@@ -48,7 +55,7 @@ export default async function EventDetail({ params }: EventDetailParams) {
           </CardFooter>
         )}
       </Card>
-      <Weather dateFrom={event.dateFrom} dateTo={event.dateTo} />
+      {/*<Weather dateFrom={event.dateFrom} dateTo={event.dateTo} />*/}
     </>
   );
 }

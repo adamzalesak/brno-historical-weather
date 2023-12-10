@@ -14,11 +14,11 @@ import { CalendarHeart } from "lucide-react";
 import { NotFound } from "@/components/NotFound";
 import Weather from "@/components/Weather";
 
-type EventDetailParams = {
+export default async function EventDetail({
+  params,
+}: {
   params: { id: number };
-};
-
-export default async function EventDetail({ params }: EventDetailParams) {
+}) {
   let event = null;
   try {
     event = await getEventDetail(params.id);
@@ -48,10 +48,10 @@ export default async function EventDetail({ params }: EventDetailParams) {
           </CardDescription>
         </CardHeader>
         <CardContent>{event.description}</CardContent>
-        {event.link !== null && (
+        {event.link !== null && event.link !== "" && (
           <CardFooter className={"justify-end"}>
             <Link href={event.link}>
-              <Button variant={"link"}>Learn more</Button>
+              <Button variant="link">Learn more</Button>
             </Link>
           </CardFooter>
         )}

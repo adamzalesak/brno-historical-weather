@@ -14,7 +14,7 @@ export const BackButton = () => {
 
   return (
     <Button variant="ghost" onClick={() => router.back()} className="mr-1">
-      <ArrowLeft className="w-4 sm:w-auto" />
+      <ArrowLeft className="w-4 md:w-auto" />
     </Button>
   );
 };

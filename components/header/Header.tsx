@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
+import { BackButton } from "./BackButton";
 import User from "./User";
 
 async function Header() {
@@ -10,8 +11,10 @@ async function Header() {
     data: { user },
   } = await supabase.auth.getUser();
 
+
   return (
     <header className="w-full flex justify-center">
+      <BackButton />
       <h1 className="text-2xl pr-3 whitespace-nowrap self-center hidden sm:block">
         <Link href="/">Brno Weather Capsule</Link>
       </h1>

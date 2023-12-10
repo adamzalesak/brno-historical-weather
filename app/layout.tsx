@@ -1,7 +1,7 @@
-import Header from "@/components/Header";
+import { AppProgressBar } from "@/components/ProgressBar";
+import Header from "@/components/header/Header";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import { AppProgressBar } from "@/components/ProgressBar";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`

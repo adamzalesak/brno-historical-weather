@@ -20,6 +20,7 @@ export default function WeatherIntervalWidget({
   weather,
 }: WeatherIntervalWidgetProps) {
   const filteredWeather = simplifyWeatherData(weather);
+  console.log(filteredWeather);
 
   return (
     <Card>

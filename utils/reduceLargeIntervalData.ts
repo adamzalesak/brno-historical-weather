@@ -49,7 +49,9 @@ function groupDataByPeriod(
 
   return groups;
 }
-export const simplifyWeatherData = (weather: WeatherRow[]) => {
+export const simplifyWeatherData = (
+  weather: WeatherRow[],
+): WeatherIntervalSummary[] => {
   const interval =
     weather.length > 1000
       ? "year"
@@ -63,7 +65,10 @@ export const simplifyWeatherData = (weather: WeatherRow[]) => {
   const simplifiedWeather: WeatherIntervalSummary[] = [];
 
   if (interval === "day") {
-    return weather;
+    weather.forEach((row) => {
+      simplifiedWeather.push(getWeatherIntervalSummary([row]));
+    });
+    return simplifiedWeather;
   }
 
   const groupData = groupDataByPeriod(weather, interval);

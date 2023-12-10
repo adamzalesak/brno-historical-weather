@@ -19,7 +19,7 @@ export const FavoriteEventListItem = ({
   href,
 }: EventListItemProps) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex">
       <Link
         href={href}
         className="w-full flex flex-col sm:flex-row gap-1 sm:gap-2 bg-card p-4 rounded-lg border text-card-foreground shadow-sm"
@@ -28,14 +28,13 @@ export const FavoriteEventListItem = ({
         <span>{name}</span>
       </Link>
       <form
-        className="my-auto"
         action={async () => {
           "use server";
           await removeFromFavoriteEvents(id);
           redirect("/my-events");
         }}
       >
-        <Button variant="outline">
+        <Button variant="outline" className="min-h-full">
           <CalendarX className="mr-2 h-4 w-4" />
           Remove
         </Button>

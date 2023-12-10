@@ -1,4 +1,4 @@
-import { PiCloud, PiCloudSun, PiSun, PiWindLight } from "react-icons/pi";
+import { PiCloud, PiCloudSun, PiSun } from "react-icons/pi";
 import { IoRainySharp, IoThunderstorm } from "react-icons/io5";
 import React from "react";
 
@@ -25,8 +25,6 @@ export function determineWeatherCondition(
     return "Sunny";
   } else if (sunshine > 3 && sunshine <= 5) {
     return "Partly Cloudy";
-  } else if (sunshine <= 3) {
-    return "Light Breeze";
   } else {
     return "Clear";
   }
@@ -44,8 +42,6 @@ export function determineWeatherIcon(
       return <IoRainySharp />;
     case "Cloudy":
       return <PiCloud />;
-    case "Light Breeze":
-      return <PiWindLight />;
     case "Partly Cloudy":
       return <PiCloudSun />;
     case "Stormy":

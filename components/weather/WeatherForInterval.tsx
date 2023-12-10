@@ -1,7 +1,8 @@
-import { getWeatherForInterval } from "@/utils/api";
+import { determineWindConditions } from "@/utils/getWindConditions";
 import { WeatherWidget } from "@/components/weather/WeatherWidget";
 import { MdOutlineWbSunny } from "react-icons/md";
-import { determineWindConditions } from "@/utils/getWindConditions";
+import { getWeatherForInterval } from "@/utils/api";
+import WeatherIntervalWidget from "@/components/weather/WeatherIntervalWidget";
 
 export default async function WeatherForInterval({
   dateFrom,
@@ -14,13 +15,14 @@ export default async function WeatherForInterval({
   if (!weather) {
     return null;
   }
-  console.log("INTERVAL WEATHER");
-  console.log(weather);
   return (
-    <WeatherWidget
-      titleText={`${Math.round(1)} km/h`}
-      icon={<MdOutlineWbSunny />}
-      footerText={determineWindConditions(1)}
-    />
+    <div>
+      <WeatherWidget
+        titleText={`${Math.round(1)} km/h`}
+        icon={<MdOutlineWbSunny />}
+        footerText={determineWindConditions(1)}
+      />
+      <WeatherIntervalWidget weather={weather} />
+    </div>
   );
 }

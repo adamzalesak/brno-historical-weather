@@ -66,7 +66,7 @@ const CreateEvent = () => {
   }
 
   return (
-    <Card>
+    <Card className={"max-w-xl"}>
       <CardHeader>
         <CardTitle>Create My Event</CardTitle>
         <CardDescription>Edit your event's attributes</CardDescription>

@@ -1,4 +1,6 @@
 import { getWeatherForDay } from "@/utils/api";
+import { WeatherWidget } from "@/components/weather/WeatherWidget";
+import { MdOutlineWbSunny } from "react-icons/md";
 
 export default async function WeatherForDay({ date }: { date: Date }) {
   const weather = await getWeatherForDay(date);
@@ -7,5 +9,12 @@ export default async function WeatherForDay({ date }: { date: Date }) {
   }
   console.log("SINGLE DAY WEATHER");
   console.log(weather);
-  return <h1>Single DAY</h1>;
+  const temp = weather.max_temp ?? 0;
+  return (
+    <WeatherWidget
+      titleText={`${Math.round(temp)}°C`}
+      icon={<MdOutlineWbSunny color={"white"} />}
+      footerText={"sunny"}
+    />
+  );
 }

@@ -18,6 +18,7 @@ import { newEventSchema } from "@/lib/formSchema";
 import { EventCreate } from "@/types/supabaseAbstractions";
 import { createClient } from "@/utils/supabase/client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { is } from "date-fns/locale";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -67,10 +68,15 @@ const CreateEvent = ({
     }
   }, [dateFrom, dateTo]);
 
-  // useEffect(() => {
-    //todo
-
   const isSingleDayEvent = form.watch("isSingleDayEvent");
+  const dateFromValue = form.watch("dateFrom");
+  const dateToValue = form.watch("dateTo");
+
+  useEffect(() => {
+    if (isSingleDayEvent && dateFromValue && !dateToValue) {
+      form.setValue("dateTo", dateFromValue);
+    }
+  }, [isSingleDayEvent, dateFromValue, dateToValue]);
 
   function onSubmit(values: z.infer<typeof newEventSchema>) {
     supabase.auth.getUser().then((response) => {

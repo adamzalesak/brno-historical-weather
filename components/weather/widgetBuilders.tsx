@@ -1,7 +1,13 @@
 import { WeatherWidget } from "@/components/weather/WeatherWidget";
-import { MdOutlineWbSunny } from "react-icons/md";
-import { determineWeatherCondition } from "@/utils/getWeatherConditions";
-import { determineWindConditions } from "@/utils/getWindConditions";
+import {
+  determineWeatherCondition,
+  determineWeatherIcon,
+} from "@/utils/getWeatherConditions";
+import {
+  determineWindConditions,
+  determineWindIcon,
+} from "@/utils/getWindConditions";
+import { IoSnowOutline } from "react-icons/io5";
 
 export function buildTemperatureWidget(
   avg_temp: number,
@@ -11,7 +17,7 @@ export function buildTemperatureWidget(
   return (
     <WeatherWidget
       titleText={`${Math.round(avg_temp)}°C`}
-      icon={<MdOutlineWbSunny />} // Replace with appropriate icon
+      icon={determineWeatherIcon(precipitation, sunshine)}
       footerText={determineWeatherCondition(precipitation, sunshine)}
     />
   );
@@ -21,7 +27,7 @@ export function buildWindSpeedWidget(wind_speed: number) {
   return (
     <WeatherWidget
       titleText={`${Math.round(wind_speed)} km/h`}
-      icon={<MdOutlineWbSunny />} // Replace with appropriate icon
+      icon={determineWindIcon(wind_speed)}
       footerText={determineWindConditions(wind_speed)}
     />
   );
@@ -31,7 +37,7 @@ export function buildSnowWidget(snow: number) {
   return (
     <WeatherWidget
       titleText={`${Math.round(snow)} cm`}
-      icon={<MdOutlineWbSunny />} // Replace with appropriate icon
+      icon={<IoSnowOutline />}
       footerText="Snow"
     />
   );

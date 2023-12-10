@@ -24,7 +24,7 @@ export default async function User() {
       <span className="hidden md:block">{user.email}</span>
       <form action={signOut}>
         <Button variant="secondary">
-          <LogOut className="w-4 sm:w-auto" />
+          <LogOut className="w-4 md:w-auto" />
         </Button>
       </form>
     </>

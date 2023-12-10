@@ -1,4 +1,8 @@
 "use client";
+import { RadioGroupField } from "@/components/formFields/RadioGroupField";
+import { TextareaField } from "@/components/formFields/TextAreaField";
+import { TextInputField } from "@/components/formFields/TextInputField";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,20 +11,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form, FormField } from "@/components/ui/form";
-import * as z from "zod";
+import { newEventSchema } from "@/lib/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { newEventSchema } from "@/lib/formSchema";
-import { RadioGroupField } from "@/components/formFields/RadioGroupField";
-import { TextareaField } from "@/components/formFields/TextAreaField";
-import { TextInputField } from "@/components/formFields/TextInputField";
+import * as z from "zod";
 
-import React, { useEffect } from "react";
 import { DatePickerField } from "@/components/formFields/DatePickerField";
 import { SwitchField } from "@/components/formFields/SwitchField";
-import { createClient } from "@/utils/supabase/client";
 import { EventCreate } from "@/types/supabaseAbstractions";
+import { createClient } from "@/utils/supabase/client";
+import { useEffect } from "react";
 
 const CreateEvent = () => {
   const supabase = createClient();
@@ -68,82 +68,82 @@ const CreateEvent = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Create my event</CardTitle>
+        <CardTitle>Create My Event</CardTitle>
         <CardDescription>Edit your event's attributes</CardDescription>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <TextInputField label="Event name" field={field} />
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <TextareaField field={field} label="Description" />
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="linkWithMoreInfo"
-                render={({ field }) => (
-                  <TextInputField
-                    field={field}
-                    label="Link with more info (optional)"
-                  />
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="isSingleDayEvent"
-                render={({ field }) => (
-                  <SwitchField field={field} label="Single day event" />
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="dateFrom"
-                render={({ field }) => (
-                  <DatePickerField
-                    field={field}
-                    label={isSingleDayEvent ? "Date of event" : "From"}
-                  />
-                )}
-              />
-              {!isSingleDayEvent && (
-                <FormField
-                  control={form.control}
-                  name="dateTo"
-                  render={({ field }) => (
-                    <DatePickerField field={field} label={"To"} />
-                  )}
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <TextInputField label="Event name" field={field} />
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <TextareaField field={field} label="Description" />
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="linkWithMoreInfo"
+              render={({ field }) => (
+                <TextInputField
+                  field={field}
+                  label="Link with more info (optional)"
                 />
               )}
+            />
+            <FormField
+              control={form.control}
+              name="isSingleDayEvent"
+              render={({ field }) => (
+                <SwitchField field={field} label="Single day event" />
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="dateFrom"
+              render={({ field }) => (
+                <DatePickerField
+                  field={field}
+                  label={isSingleDayEvent ? "Date of event" : "From"}
+                />
+              )}
+            />
+            {!isSingleDayEvent && (
               <FormField
                 control={form.control}
-                name="visibility"
+                name="dateTo"
                 render={({ field }) => (
-                  <RadioGroupField
-                    field={field}
-                    label="Visibility"
-                    options={[
-                      { value: "Public", label: "Public" },
-                      { value: "Private", label: "Private" },
-                    ]}
-                  />
+                  <DatePickerField field={field} label="To" />
                 )}
               />
-              <Button type="submit" className={"mt-8"}>
-                Submit
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </CardHeader>
+            )}
+            <FormField
+              control={form.control}
+              name="visibility"
+              render={({ field }) => (
+                <RadioGroupField
+                  field={field}
+                  label="Visibility"
+                  options={[
+                    { value: "Public", label: "Public" },
+                    { value: "Private", label: "Private" },
+                  ]}
+                />
+              )}
+            />
+            <Button type="submit" className="mt-8">
+              Submit
+            </Button>
+          </form>
+        </Form>
+      </CardContent>
     </Card>
   );
 };

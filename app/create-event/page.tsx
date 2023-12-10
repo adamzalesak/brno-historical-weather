@@ -67,6 +67,9 @@ const CreateEvent = ({
     }
   }, [dateFrom, dateTo]);
 
+  // useEffect(() => {
+    //todo
+
   const isSingleDayEvent = form.watch("isSingleDayEvent");
 
   function onSubmit(values: z.infer<typeof newEventSchema>) {

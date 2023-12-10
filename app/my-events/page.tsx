@@ -4,10 +4,9 @@ import { FavoriteEventListItem } from "@/components/events/FavoriteEventListItem
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getMyEvents, getMyFavoriteEvents } from "@/utils/api";
+import { formatDates } from "@/utils/formatDates";
 import { Plus } from "lucide-react";
 import Link from "next/link";
-
-export const revalidate = 0;
 
 export default async function MyEvents() {
   const events = await getMyEvents();
@@ -31,11 +30,7 @@ export default async function MyEvents() {
                 key={event.id}
                 href={`/events/${event.id}`}
                 name={event.name}
-                date={
-                  event.dateTo
-                    ? `${event.dateFrom} – ${event.dateTo}`
-                    : event.dateFrom
-                }
+                date={formatDates(event.dateFrom, event.dateTo)}
                 isPublic={event.visibility === "Public"}
               />
             ))}

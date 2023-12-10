@@ -2,8 +2,7 @@ import { EventListContainer } from "@/components/events/EventListContainer";
 import { EventListItem } from "@/components/events/EventListItem";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPublicEvents } from "@/utils/api";
-
-export const revalidate = 0;
+import { formatDates } from "@/utils/formatDates";
 
 export default async function PublicEvents() {
   const events = await getPublicEvents();
@@ -20,11 +19,7 @@ export default async function PublicEvents() {
               key={event.id}
               href={`/events/${event.id}`}
               name={event.name}
-              date={
-                event.dateTo
-                  ? `${event.dateFrom} – ${event.dateTo}`
-                  : event.dateFrom
-              }
+              date={formatDates(event.dateFrom, event.dateTo)}
             />
           ))}
         </EventListContainer>

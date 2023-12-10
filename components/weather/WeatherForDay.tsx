@@ -4,6 +4,7 @@ import {
   buildTemperatureWidget,
   buildWindSpeedWidget,
 } from "@/components/weather/widgetBuilders";
+import { Fragment } from "react";
 
 export default async function WeatherForDay({ date }: { date: Date }) {
   let weather = null;
@@ -32,9 +33,7 @@ export default async function WeatherForDay({ date }: { date: Date }) {
     <div>
       <div className="grid grid-cols-2 gap-4">
         {widgetElements.map((widgetElement, index) => (
-          <div key={index} className={"col-span-1"}>
-            {widgetElement}
-          </div>
+          <Fragment key={index}>{widgetElement}</Fragment>
         ))}
       </div>
     </div>

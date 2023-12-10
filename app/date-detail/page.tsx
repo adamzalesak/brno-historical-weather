@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { formatDates } from "@/utils/formatDates";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
@@ -18,6 +19,8 @@ export default function DateDetail({
   };
 }) {
   const variant = dateFrom && dateTo ? "interval" : "single";
+
+  if (!dateFrom) return <div>No date selected</div>;
 
   const createObjectQueryParams =
     `dateFrom=${dateFrom}` + (dateTo ? `&dateTo=${dateTo}` : "");
@@ -39,13 +42,7 @@ export default function DateDetail({
               </Button>
             </div>
           </CardTitle>
-          <CardDescription>
-            {variant === "interval"
-              ? `${dateFrom} - ${dateTo}`
-              : dateFrom
-                ? dateFrom
-                : null}
-          </CardDescription>
+          <CardDescription>{formatDates(dateFrom, dateTo)}</CardDescription>
         </CardHeader>
       </Card>
       <div className="md:col-span-2">

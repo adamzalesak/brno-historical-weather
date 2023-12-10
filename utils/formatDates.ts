@@ -1,4 +1,4 @@
-export const formatDates = (dateFrom: string, dateTo: string | null) => {
+export const formatDates = (dateFrom: string, dateTo?: string | null) => {
   const formatter = new Intl.DateTimeFormat("cz-CZ", {
     year: "numeric",
     month: "long",

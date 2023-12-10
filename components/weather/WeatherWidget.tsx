@@ -12,16 +12,16 @@ export const WeatherWidget = ({
   footerText,
 }: WeatherWidgetProps) => {
   return (
-    <div className=" w-[190px] h-[268px] bg-primary rounded-lg shadow-lg">
+    <div className="w-[190px] h-[268px] bg-primary rounded-lg shadow-lg">
       <div className="flex flex-col h-full">
         <div className="flex flex-col items-center justify-center h-full p-4 gap-4">
-          <div className="flex-grow-0 text-[55px] font-medium leading-[30px] text-white p-2">
+          <div className="flex-grow-0 text-4xl font-medium leading-[30px] text-white p-2">
             {titleText}
           </div>
           <div className="flex-grow flex justify-center items-center p-2 text-[100px] text-white">
             {icon}
           </div>
-          <div className="flex-grow-0 text-[50px] font-medium leading-[30px] text-white p-2">
+          <div className="flex-grow-0 text-3xl font-medium align-middle text-white">
             {footerText}
           </div>
         </div>

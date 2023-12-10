@@ -1,4 +1,6 @@
-import { getEventDetail } from "@/utils/api";
+import { NotFound } from "@/components/NotFound";
+import Weather from "@/components/Weather";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,58 +9,60 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getEventDetail, getIsMyFavoriteEvent } from "@/utils/api";
 import { formatDates } from "@/utils/formatDates";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { CalendarHeart } from "lucide-react";
-import { NotFound } from "@/components/NotFound";
-import Weather from "@/components/Weather";
+import { AddToFavoritesButton } from "./AddToFavoritesButton";
+
+const revalidateCache = async () => {
+  "use server";
+  revalidatePath("/my-events", "layout");
+};
 
 export default async function EventDetail({
   params,
 }: {
   params: { id: number };
 }) {
-  let event = null;
   try {
-    event = await getEventDetail(params.id);
+    const event = await getEventDetail(params.id);
+    const isMyFavorite = await getIsMyFavoriteEvent(params.id);
+
+    return (
+      <div className={"grid grid-cols-5 gap-4"}>
+        <Card className={"col-span-3 "}>
+          <CardHeader>
+            <CardTitle>
+              <div className={"flex justify-between"}>
+                {event.name}
+                <AddToFavoritesButton
+                  id={params.id}
+                  isMyFavorite={isMyFavorite}
+                  revalidateCache={revalidateCache}
+                />
+              </div>
+            </CardTitle>
+            <CardDescription>
+              {formatDates(event.dateFrom, event.dateTo)}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>{event.description}</CardContent>
+          {event.link !== null && event.link !== "" && (
+            <CardFooter className={"justify-end"}>
+              <Button variant="link" asChild>
+                <Link href={event.link}>Learn more</Link>
+              </Button>
+            </CardFooter>
+          )}
+        </Card>
+        <div className={"col-span-2"}>
+          <Weather dateFrom={event.dateFrom} dateTo={event.dateTo} />
+        </div>
+      </div>
+    );
   } catch (e) {
     console.error(e);
-  }
-
-  if (!event) {
     return <NotFound />;
   }
-
-  return (
-    <div className={"grid grid-cols-5 gap-4"}>
-      <Card className={"col-span-3 "}>
-        <CardHeader>
-          <CardTitle>
-            <div className={"flex justify-between"}>
-              {event.name}
-              <Button variant="outline">
-                <CalendarHeart className="mr-2 h-4 w-4" />
-                Add to favorites
-              </Button>
-            </div>
-          </CardTitle>
-          <CardDescription>
-            {formatDates(event.dateFrom, event.dateTo)}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>{event.description}</CardContent>
-        {event.link !== null && event.link !== "" && (
-          <CardFooter className={"justify-end"}>
-            <Link href={event.link}>
-              <Button variant="link">Learn more</Button>
-            </Link>
-          </CardFooter>
-        )}
-      </Card>
-      <div className={"col-span-2"}>
-        <Weather dateFrom={event.dateFrom} dateTo={event.dateTo} />
-      </div>
-    </div>
-  );
 }

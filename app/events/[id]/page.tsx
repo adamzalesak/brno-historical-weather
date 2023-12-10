@@ -11,6 +11,7 @@ import {
 import { formatDates } from "@/utils/formatDates";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { CalendarHeart } from "lucide-react";
 
 type EventDetailParams = {
   params: { id: number };
@@ -28,7 +29,10 @@ export default async function EventDetail({ params }: EventDetailParams) {
           <CardTitle>
             <div className={"flex justify-between"}>
               {event.name}
-              <Button>Add to favorites</Button>
+              <Button variant="outline">
+                <CalendarHeart className="mr-2 h-4 w-4" />
+                Add to favorites
+              </Button>
             </div>
           </CardTitle>
           <CardDescription>

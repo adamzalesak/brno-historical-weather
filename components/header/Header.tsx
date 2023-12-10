@@ -26,7 +26,7 @@ async function Header() {
 
       <div className="flex justify-end items-center gap-2 ml-auto">
         <Button variant="secondary" asChild>
-          <Link href="/events">All Events</Link>
+          <Link href="/events">Public Events</Link>
         </Button>
         {user && (
           <Button asChild variant="secondary">

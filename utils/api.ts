@@ -1,15 +1,12 @@
 import { createClient } from "./supabase/server";
 
-export const getAllEvents = async () => {
+export const getPublicEvents = async () => {
   const supabase = createClient();
-
-  const user = await supabase.auth.getUser();
-  const userId = user.data.user?.id;
 
   const { data, error } = await supabase
     .from("events")
     .select("id, name, dateFrom, dateTo, visibility")
-    .or(`visibility.eq.Public${userId ? `,owner_uuid.eq.${userId}` : ""}`);
+    .eq("visibility", "Public");
   if (error) throw error;
   return data;
 };
@@ -83,7 +80,9 @@ export const getIsMyFavoriteEvent = async (eventId: number) => {
   const user = await supabase.auth.getUser();
   const userId = user.data.user?.id;
 
-  if (!userId) throw new Error("User not found");
+  if (!userId) {
+    return false;
+  }
 
   const { data, error } = await supabase
     .from("favorite_events")

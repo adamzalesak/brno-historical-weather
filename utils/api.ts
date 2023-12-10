@@ -1,5 +1,4 @@
 import { createClient } from "./supabase/server";
-import { Database } from "@/types/supabase";
 
 export const getAllEvents = async () => {
   const supabase = createClient();
@@ -43,31 +42,18 @@ export const getEventDetail = async (id: number) => {
   return data;
 };
 
-type Weather = Database["public"]["Tables"]["weather"]["Row"];
-export const getWeatherForDay = async (date: Date): Promise<Weather> => {
-  // keep mock because supabase does not cache and crashes on too many requests
-  // return {
-  //   air_moisture: 50,
-  //   air_pressure: 1013,
-  //   avg_temp: 20,
-  //   date: "2023-03-01",
-  //   max_temp: 25,
-  //   min_temp: 15,
-  //   precipitation: 10,
-  //   snow: 0,
-  //   sunshine: 8,
-  //   wind_speed: 5,
-  // };
-
+export const getWeatherForDay = async (date: Date) => {
   const supabase = createClient();
 
   const { data, error } = await supabase
     .from("weather")
     .select("*")
-    .eq("date", date.toISOString())
-    .single();
+    .eq("date", date.toISOString());
+
   if (error) throw error;
-  return data as Weather;
+  if (!data.length) return null;
+
+  return data[0];
 };
 
 export const getWeatherForInterval = async (dateFrom: Date, dateTo: Date) => {

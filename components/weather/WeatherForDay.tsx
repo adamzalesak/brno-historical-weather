@@ -14,7 +14,7 @@ export default async function WeatherForDay({ date }: { date: Date }) {
   const widgetElements = [];
   if (avg_temp)
     widgetElements.push(
-      buildTemperatureWidget(avg_temp, precipitation ?? 0, sunshine ?? 0),
+      buildTemperatureWidget(avg_temp, precipitation ?? 0, sunshine ?? 0)
     );
 
   if (wind_speed && wind_speed > 0) {

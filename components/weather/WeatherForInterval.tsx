@@ -1,8 +1,12 @@
-import { determineWindConditions } from "@/utils/getWindConditions";
-import { WeatherWidget } from "@/components/weather/WeatherWidget";
-import { MdOutlineWbSunny } from "react-icons/md";
 import { getWeatherForInterval } from "@/utils/api";
 import WeatherIntervalWidget from "@/components/weather/WeatherIntervalWidget";
+import { getWeatherIntervalSummary } from "@/utils/getWeatherIntervalSummary";
+import {
+  buildAvgPrecipitationWidget,
+  buildAvgTemperatureWidget,
+  buildRainyDaysCountWidget,
+  buildSunnyDaysCountWidget,
+} from "@/components/weather/widgetBuilders";
 
 export default async function WeatherForInterval({
   dateFrom,
@@ -13,16 +17,25 @@ export default async function WeatherForInterval({
 }) {
   const weather = await getWeatherForInterval(dateFrom, dateTo);
   if (!weather) {
-    return null;
+    return null; // TODO card no weather data
   }
+  const {
+    numberOfSunnyDays,
+    numberOfRainyDays,
+    avgTemperature,
+    avgPrecipitation,
+  } = getWeatherIntervalSummary(weather);
+
   return (
-    <div>
-      <WeatherWidget
-        titleText={`${Math.round(1)} km/h`}
-        icon={<MdOutlineWbSunny />}
-        footerText={determineWindConditions(1)}
-      />
-      <WeatherIntervalWidget weather={weather} />
+    <div className="grid grid-cols-2 gap-4 w-auto">
+      <div className="grid grid-cols-2 gap-4 w-auto">
+        {buildSunnyDaysCountWidget(numberOfSunnyDays)}
+        {buildRainyDaysCountWidget(numberOfRainyDays)}
+        {buildAvgTemperatureWidget(avgTemperature)}
+        {buildAvgPrecipitationWidget(avgPrecipitation)}
+
+        <WeatherIntervalWidget weather={weather} />
+      </div>
     </div>
   );
 }

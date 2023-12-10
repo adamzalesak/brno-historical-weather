@@ -22,7 +22,7 @@ export default async function WeatherForInterval({
     console.error(e);
   }
   if (!weather || weather.length === 0) {
-    return null; // TODO card no weather data
+    return null;
   }
   const {
     numberOfSunnyDays,

@@ -36,7 +36,7 @@ export default async function MyEvents() {
                     ? `${event.dateFrom} – ${event.dateTo}`
                     : event.dateFrom
                 }
-                isPrivate={event.visibility === "Private"}
+                isPublic={event.visibility === "Public"}
               />
             ))}
           </EventListContainer>

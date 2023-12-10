@@ -5,14 +5,14 @@ type EventListItemProps = {
   date: string;
   name: string;
   href: string;
-  isPrivate?: boolean;
+  isPublic?: boolean;
 };
 
 export const EventListItem = ({
   date,
   name,
   href,
-  isPrivate,
+  isPublic,
 }: EventListItemProps) => {
   return (
     <Link
@@ -21,7 +21,7 @@ export const EventListItem = ({
     >
       <Badge className="self-start">{date}</Badge>
       <span>{name}</span>
-      {isPrivate && <Badge className="ml-auto">Private</Badge>}
+      {isPublic && <Badge className="ml-auto">Public</Badge>}
     </Link>
   );
 };

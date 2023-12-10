@@ -6,4 +6,5 @@ export interface WeatherIntervalSummary {
   avgWindSpeed: number;
   numberOfRainyDays: number;
   numberOfSunnyDays: number;
+  intervalFromDate: string;
 }

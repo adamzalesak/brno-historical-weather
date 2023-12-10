@@ -30,11 +30,11 @@ export default function WeatherIntervalWidget({
         <ResponsiveContainer width="100%" height={350}>
           <BarChart data={filteredWeather}>
             <XAxis
-              dataKey="date"
+              dataKey="intervalFromDate"
               stroke="#888888"
               fontSize={12}
               tickLine={false}
-              axisLine={false}
+              axisLine={true}
             />
             <YAxis
               stroke="#888888"

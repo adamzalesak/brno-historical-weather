@@ -57,5 +57,6 @@ export const getWeatherIntervalSummary = (
     avgWindSpeed: countWindSpeed > 0 ? totalWindSpeed / countWindSpeed : 0,
     numberOfRainyDays: rainyDayCount,
     numberOfSunnyDays: sunnyDayCount,
+    intervalFromDate: weather[0].date,
   };
 };

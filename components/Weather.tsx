@@ -3,7 +3,7 @@ import WeatherForInterval from "@/components/weather/WeatherForInterval";
 
 interface WeatherParams {
   dateFrom: string;
-  dateTo: string | null;
+  dateTo?: string | null;
 }
 
 export default async function Weather({ dateFrom, dateTo }: WeatherParams) {

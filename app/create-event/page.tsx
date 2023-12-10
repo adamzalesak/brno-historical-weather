@@ -1,5 +1,7 @@
 "use client";
+import { DatePickerField } from "@/components/formFields/DatePickerField";
 import { RadioGroupField } from "@/components/formFields/RadioGroupField";
+import { SwitchField } from "@/components/formFields/SwitchField";
 import { TextareaField } from "@/components/formFields/TextAreaField";
 import { TextInputField } from "@/components/formFields/TextInputField";
 import { Button } from "@/components/ui/button";
@@ -11,20 +13,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Form, FormField } from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
 import { newEventSchema } from "@/lib/formSchema";
+import { EventCreate } from "@/types/supabaseAbstractions";
+import { createClient } from "@/utils/supabase/client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { DatePickerField } from "@/components/formFields/DatePickerField";
-import { SwitchField } from "@/components/formFields/SwitchField";
-import { EventCreate } from "@/types/supabaseAbstractions";
-import { createClient } from "@/utils/supabase/client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
-
-const CreateEvent = () => {
+const CreateEvent = ({
+  searchParams: { dateFrom, dateTo },
+}: {
+  searchParams: {
+    dateFrom?: string;
+    dateTo?: string;
+  };
+}) => {
   const router = useRouter();
   const supabase = createClient();
   const { toast } = useToast();
@@ -40,12 +46,28 @@ const CreateEvent = () => {
     },
   });
 
-  const isSingleDayEvent = form.watch("isSingleDayEvent");
+  // set initial values from query params
   useEffect(() => {
-    if (isSingleDayEvent) {
-      form.setValue("dateTo", form.getValues("dateFrom"));
+    if (!dateFrom && !dateTo) {
+      return;
     }
-  }, [isSingleDayEvent, form.getValues("dateFrom")]);
+
+    if (dateFrom && !dateTo) {
+      form.setValue("isSingleDayEvent", true);
+      const from = new Date(dateFrom);
+      form.setValue("dateFrom", from);
+    }
+
+    if (dateFrom && dateTo) {
+      form.setValue("isSingleDayEvent", false);
+      const from = new Date(dateFrom);
+      const to = new Date(dateTo);
+      form.setValue("dateFrom", from);
+      form.setValue("dateTo", to);
+    }
+  }, [dateFrom, dateTo]);
+
+  const isSingleDayEvent = form.watch("isSingleDayEvent");
 
   function onSubmit(values: z.infer<typeof newEventSchema>) {
     supabase.auth.getUser().then((response) => {

@@ -39,10 +39,10 @@ const DateSelector = () => {
 
   const handleButtonClick = () => {
     if (singleDate) {
-      router.push(`singleDate?date=${formatDate(singleDate)}`);
+      router.push(`date-detail?dateFrom=${formatDate(singleDate)}`);
     } else if (dateRange?.from && dateRange?.to) {
       router.push(
-        `dateRange?dateFrom=${formatDate(dateRange.from)}&dateTo=${formatDate(
+        `date-detail?dateFrom=${formatDate(dateRange.from)}&dateTo=${formatDate(
           dateRange.to
         )}`
       );

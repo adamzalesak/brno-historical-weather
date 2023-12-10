@@ -31,7 +31,7 @@ export default async function EventDetail({
 
     return (
       <div className="grid md:grid-cols-5 gap-4">
-        <Card className="md:col-span-3">
+        <Card className="md:col-span-3 h-fit">
           <CardHeader>
             <CardTitle>
               <div className="flex justify-between">

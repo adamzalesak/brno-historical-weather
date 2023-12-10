@@ -16,7 +16,7 @@ export default async function WeatherForInterval({
   dateTo: Date;
 }) {
   const weather = await getWeatherForInterval(dateFrom, dateTo);
-  if (!weather) {
+  if (!weather || weather.length === 0) {
     return null; // TODO card no weather data
   }
   const {
@@ -33,9 +33,8 @@ export default async function WeatherForInterval({
         {buildRainyDaysCountWidget(numberOfRainyDays)}
         {buildAvgTemperatureWidget(avgTemperature)}
         {buildAvgPrecipitationWidget(avgPrecipitation)}
-
-        <WeatherIntervalWidget weather={weather} />
       </div>
+      <WeatherIntervalWidget weather={weather} />
     </div>
   );
 }

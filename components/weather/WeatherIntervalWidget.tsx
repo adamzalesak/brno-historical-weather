@@ -2,6 +2,7 @@
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { WeatherRow } from "@/types/supabaseAbstractions";
+import { simplifyWeatherData } from "@/utils/reduceLargeIntervalData";
 
 interface WeatherIntervalWidgetProps {
   weather: WeatherRow[];
@@ -10,9 +11,11 @@ interface WeatherIntervalWidgetProps {
 export default function WeatherIntervalWidget({
   weather,
 }: WeatherIntervalWidgetProps) {
+  const filteredWeather = simplifyWeatherData(weather);
+
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={weather}>
+      <BarChart data={filteredWeather}>
         <XAxis
           dataKey="date"
           stroke="#888888"
@@ -23,11 +26,15 @@ export default function WeatherIntervalWidget({
         <YAxis
           stroke="#888888"
           fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `$${value}`}
+          tickLine={true}
+          axisLine={true}
+          tickFormatter={(value) => `${value} °C`}
         />
-        <Bar dataKey="avg_temp" fill="#adfa1d" radius={[4, 4, 0, 0]} />
+        <Bar
+          dataKey="avgTemperature"
+          fill="hsl(var(--primary))"
+          radius={[4, 4, 0, 0]}
+        />
       </BarChart>
     </ResponsiveContainer>
   );

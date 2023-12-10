@@ -27,13 +27,8 @@ export const getMyEvents = async () => {
   return data;
 };
 
-export const getMyFavoriteEventsIds = async () => {
+export const getMyFavoriteEventsIds = async (userId: string) => {
   const supabase = createClient();
-
-  const user = await supabase.auth.getUser();
-  const userId = user.data.user?.id;
-
-  if (!userId) throw new Error("User not found");
 
   const { data, error } = await supabase
     .from("favorite_events")
@@ -53,7 +48,7 @@ export const getMyFavoriteEvents = async () => {
   const { data, error } = await supabase
     .from("events")
     .select("id, name, dateFrom, dateTo, visibility")
-    .in("id", await getMyFavoriteEventsIds());
+    .in("id", await getMyFavoriteEventsIds(userId));
   if (error) throw error;
   return data;
 };

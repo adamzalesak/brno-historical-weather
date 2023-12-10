@@ -10,8 +10,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Weather Capsule",
-  description: "Historical weather in Brno",
+  title: "Brno Historical Weather",
+  description: "Journey Through Brno's Climatic Past",
 };
 
 type RootLayoutProps = {

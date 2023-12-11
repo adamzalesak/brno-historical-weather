@@ -7,10 +7,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { formatDates } from "@/utils/formatDates";
+import { createClient } from "@/utils/supabase/server";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
-export default function DateDetail({
+export default async function DateDetail({
   searchParams: { dateFrom, dateTo },
 }: {
   searchParams: {
@@ -18,6 +19,11 @@ export default function DateDetail({
     dateTo?: string;
   };
 }) {
+  const supabase = createClient();
+  const user = await supabase.auth.getUser();
+  const userId = user?.data?.user?.id;
+  const isUserLoggedIn = !!userId;
+
   const variant = dateFrom && dateTo ? "interval" : "single";
 
   if (!dateFrom) return <div>No date selected</div>;
@@ -34,12 +40,14 @@ export default function DateDetail({
               {variant === "interval"
                 ? "Selected Date Interval"
                 : "Selected Date"}
-              <Button variant="outline" asChild>
-                <Link href={`/create-event?${createObjectQueryParams}`}>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Create Event
-                </Link>
-              </Button>
+              {isUserLoggedIn && (
+                <Button variant="outline" asChild>
+                  <Link href={`/create-event?${createObjectQueryParams}`}>
+                    <Plus className="mr-2 h-4 w-4" />
+                    Create Event
+                  </Link>
+                </Button>
+              )}
             </div>
           </CardTitle>
           <CardDescription>{formatDates(dateFrom, dateTo)}</CardDescription>

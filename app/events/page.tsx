@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPublicEvents } from "@/utils/api";
 import { formatDates } from "@/utils/formatDates";
 
+export const revalidate = 0;
+
 export default async function PublicEvents() {
   const events = await getPublicEvents();
 

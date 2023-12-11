@@ -1,4 +1,5 @@
 "use client";
+
 import { DatePickerField } from "@/components/formFields/DatePickerField";
 import { RadioGroupField } from "@/components/formFields/RadioGroupField";
 import { SwitchField } from "@/components/formFields/SwitchField";
@@ -18,7 +19,7 @@ import { newEventSchema } from "@/lib/formSchema";
 import { EventCreate } from "@/types/supabaseAbstractions";
 import { createClient } from "@/utils/supabase/client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { is } from "date-fns/locale";
+import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -91,8 +92,10 @@ const CreateEvent = ({
         link: values.linkWithMoreInfo ?? null,
         owner_uuid: user.id,
         visibility: values.visibility,
-        dateFrom: values.dateFrom.toISOString(),
-        dateTo: values.isSingleDayEvent ? null : values.dateTo.toISOString(),
+        dateFrom: format(values.dateFrom, "yyyy-MM-dd"),
+        dateTo: values.isSingleDayEvent
+          ? null
+          : format(values.dateTo, "yyyy-MM-dd"),
       };
 
       supabase

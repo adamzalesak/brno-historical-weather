@@ -8,6 +8,8 @@ import { formatDates } from "@/utils/formatDates";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
+export const revalidate = 0;
+
 export default async function MyEvents() {
   const events = await getMyEvents();
   const favoriteEvents = await getMyFavoriteEvents();

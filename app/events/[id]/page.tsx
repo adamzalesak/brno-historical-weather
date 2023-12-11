@@ -14,6 +14,7 @@ import { formatDates } from "@/utils/formatDates";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { AddToFavoritesButton } from "./AddToFavoritesButton";
+import { createClient } from "@/utils/supabase/server";
 
 const revalidateCache = async () => {
   "use server";
@@ -29,6 +30,11 @@ export default async function EventDetail({
     const event = await getEventDetail(params.id);
     const isMyFavorite = await getIsMyFavoriteEvent(params.id);
 
+    const supabase = createClient();
+    const user = await supabase.auth.getUser();
+    const userId = user?.data?.user?.id;
+    const isUserLoggedIn = !!userId;
+
     return (
       <div className="grid md:grid-cols-5 gap-4">
         <Card className="md:col-span-3 h-fit">
@@ -36,11 +42,13 @@ export default async function EventDetail({
             <CardTitle>
               <div className="flex justify-between">
                 {event.name}
-                <AddToFavoritesButton
-                  id={params.id}
-                  isMyFavorite={isMyFavorite}
-                  revalidateCache={revalidateCache}
-                />
+                {isUserLoggedIn && (
+                  <AddToFavoritesButton
+                    id={params.id}
+                    isMyFavorite={isMyFavorite}
+                    revalidateCache={revalidateCache}
+                  />
+                )}
               </div>
             </CardTitle>
             <CardDescription>
